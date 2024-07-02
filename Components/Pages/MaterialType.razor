@@ -1,6 +1,25 @@
 ﻿@page "/MaterialType"
+@using IndoorDesign.backend.application
 <h3>MaterialType</h3>
+<MudDialog @bind-Visible="_editOpen">
+    
+</MudDialog>
+<MudTreeView @bind-SelectedValues="">
+    <MudTreeNode>
+        
+    </MudTreeNode>
+</MudTreeView>
 
 @code {
+    private IMaterialTypeApplication _materialTypeApplication;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _materialTypeApplication = 
+    }
+
+    private bool _editOpen = false;
+    private List<MaterialType> _materialTypes = [];
     
 }
