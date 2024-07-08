@@ -2,6 +2,7 @@ using IndoorDesign.backend.application;
 using IndoorDesign.backend.domain.material.repository;
 using IndoorDesign.Components;
 using MudBlazor.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
