@@ -1,3 +1,5 @@
+using IndoorDesign.backend.application;
+using IndoorDesign.backend.domain.material.repository;
 using IndoorDesign.Components;
 using MudBlazor.Services;
 
@@ -8,6 +10,8 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddMudServices();
 
+builder.Services.AddScoped<IMaterialTypeRepository, MaterialTypeRepository>();
+builder.Services.AddScoped<IMaterialTypeApplication, MaterialTypeApplication>();
 
 var app = builder.Build();
 

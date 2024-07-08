@@ -6,3 +6,16 @@ public interface IMaterialTypeRepository
 
     List<MaterialType> ListAllMaterialType();
 }
+
+public class MaterialTypeRepository : IMaterialTypeRepository
+{
+    public void SaveMaterialType(MaterialType materialType)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<MaterialType> ListAllMaterialType()
+    {
+        throw new NotImplementedException();
+    }
+}
