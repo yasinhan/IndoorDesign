@@ -1,16 +1,16 @@
 ﻿namespace IndoorDesign.backend.domain.material;
 
-public class MaterialType(long? typeId, string typeName, string typeCode, long parentId)
+public class MaterialType(int? typeId, string typeName, string typeCode, int parentId)
 {
     #region Field
 
-    public long? TypeId = typeId;
+    public int? TypeId = typeId;
 
     public required string TypeName { get; init; } = typeName;
 
     public required string TypeCode { get; init; } = typeCode;
 
-    public long ParentId { get; private set; } = parentId;
+    public int ParentId { get; private set; } = parentId;
 
     public List<MaterialType>? Childern { get; private set; }
     
@@ -29,5 +29,6 @@ public class MaterialType(long? typeId, string typeName, string typeCode, long p
     }
 
     #endregion
+    
 }
     

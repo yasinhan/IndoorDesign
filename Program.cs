@@ -1,6 +1,7 @@
 using IndoorDesign.backend.application;
 using IndoorDesign.backend.domain.material.repository;
 using IndoorDesign.Components;
+using IndoorDesign.Data;
 using MudBlazor.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddMudServices();
+
+builder.Services.AddDbContext<SqliteDbContext>(option => option.UseSqlite("Data Source=Data/Indoor_Design.db"));
 
 builder.Services.AddScoped<IMaterialTypeRepository, MaterialTypeRepository>();
 builder.Services.AddScoped<IMaterialTypeApplication, MaterialTypeApplication>();
