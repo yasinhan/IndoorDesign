@@ -5,10 +5,11 @@
 <MudDialog @bind-Visible="_editOpen">
     
 </MudDialog>
-<MudTreeView @bind-SelectedValues="">
-    <MudTreeNode>
+<MudTreeView >
+    @foreach (var item in _initialMaterialTypes)
+    {
         
-    </MudTreeNode>
+    }
 </MudTreeView>
 
 @inject IMaterialTypeApplication MaterialTypeApplication;
@@ -17,10 +18,24 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        _materialTypes = MaterialTypeApplication.ListAllRootType();
+        _initialMaterialTypes = MaterialTypeApplication.ListAllRootType();
     }
 
     private bool _editOpen = false;
-    private List<MaterialTypeDto> _materialTypes = [];
+    private List<MaterialTypeDto> _initialMaterialTypes = [];
+
+    private string _code = "";
+    private string _name = "";
+    private int _selectedItemId = 0;
+
+    public async Task<IReadOnlyCollection<TreeItemData<MaterialTypeDto>>> LoadChildren(MudTreeViewItem<MaterialTypeDto> item)
+    {
+        if (item.Value != null)
+        {
+            var parentId = item.Value.Id;
+            var children = await MaterialTypeApplication.ListChildrenType(parentId);
+            
+        }
+    }
     
 }

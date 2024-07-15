@@ -10,6 +10,8 @@ public interface IMaterialTypeApplication
     void CreateMaterialType(CreateMaterialTypeCmd cmd);
 
     List<MaterialTypeDto> ListAllRootType();
+    
+    List<MaterialTypeDto> ListChildrenType(int parentId);
 }
 
 public interface IMaterialApplication
@@ -39,10 +41,22 @@ public class MaterialTypeApplication(IMaterialTypeRepository materialTypeReposit
     public List<MaterialTypeDto> ListAllRootType()
     {
         var roots = materialTypeRepository.ListRootMaterialType();
-        return roots.Select(it => new MaterialTypeDto((int)it.TypeId!, it.TypeCode, it.TypeName, it.ParentId)
+        return roots.Select(ConvertToDto).ToList();
+    }
+
+    public List<MaterialTypeDto> ListChildrenType(int parentId)
+    {
+        var children = MaterialTypeRepository.FindChildren(parentId);
+        return children.Select(ConvertToDto).ToList();
+    }
+
+    private MaterialTypeDto ConvertToDto(MaterialType materialType)
+    {
+        return new MaterialTypeDto((int)materialType.TypeId!, materialType.TypeCode, materialType.TypeName,
+            materialType.ParentId)
         {
-            TypeCode = it.TypeCode,
-            TypeName = it.TypeName
-        }).ToList();
+            TypeCode = materialType.TypeCode,
+            TypeName = materialType.TypeName
+        };
     }
 }
