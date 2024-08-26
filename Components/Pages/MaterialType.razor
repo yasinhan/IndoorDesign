@@ -2,14 +2,20 @@
 @using IndoorDesign.backend.application
 @using IndoorDesign.backend.application.dto
 <h3>MaterialType</h3>
+
 <MudDialog @bind-Visible="_editOpen">
     
 </MudDialog>
-<MudTreeView >
-    @foreach (var item in _initialMaterialTypes)
-    {
-        
-    }
+<MudTreeView>
+    <ItemTemplate>
+        @{
+            TreeItemData<MaterialTypeDto> node = context;
+            
+        }
+        <MudTreeViewItem Text="@node.Value.TypeName" @onclick="@() => LoadChildren(node)">
+            
+        </MudTreeViewItem>
+    </ItemTemplate>
 </MudTreeView>
 
 @inject IMaterialTypeApplication MaterialTypeApplication;
@@ -28,14 +34,16 @@
     private string _name = "";
     private int _selectedItemId = 0;
 
-    public async Task<IReadOnlyCollection<TreeItemData<MaterialTypeDto>>> LoadChildren(MudTreeViewItem<MaterialTypeDto> item)
+    private void LoadChildren(TreeItemData<MaterialTypeDto> item)
     {
-        if (item.Value != null)
+        if (null == item.Value)
         {
-            var parentId = item.Value.Id;
-            var children = await MaterialTypeApplication.ListChildrenType(parentId);
-            
+            return;
         }
+        var parentId = item.Value.Id;
+        var children = MaterialTypeApplication.ListChildrenType(parentId);
+        item.Value.Children = children;
+        item.Expandable = children.Count > 0;
     }
     
 }

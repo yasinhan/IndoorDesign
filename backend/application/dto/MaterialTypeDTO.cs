@@ -6,5 +6,5 @@ public class MaterialTypeDto(int id, string typeCode, string typeName, int paren
     public required string TypeCode { get; init; } = typeCode;
     public required string TypeName { get; init; } = typeName;
     public int ParentId { get; init; } = parentId;
-    public List<MaterialTypeDto>? Children { get; init; }
+    public List<MaterialTypeDto>? Children { get; set; }
 }
